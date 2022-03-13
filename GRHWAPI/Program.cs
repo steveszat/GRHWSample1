@@ -7,7 +7,13 @@ const string pipedDataFilename = "pipeddata.csv";
 const string pipedDataPath = $"{dataPath}\\{pipedDataFilename}";
 const string spacedDataFilename = "spaceddata.csv";
 const string spacedDataPath = $"{dataPath}\\{spacedDataFilename}";
-
+Dictionary<char, string> delimFiles
+    = new Dictionary<char, string>()
+    {
+        { ',', commaDelimitedFilename },
+        { '|', pipedDataFilename },
+        { ' ', spacedDataFilename }
+    };
 #endregion Constants
 char delimiter = ',';
 string filePath = commaDelimitedDataPath;
@@ -33,7 +39,7 @@ app.MapGet("/getdata", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(filePath), delimiter);
+        .GetData(new SomeFileHandler(filePath), delimiter);
 
     return data;
 })
@@ -42,12 +48,9 @@ app.MapGet("/getdata", () =>
 
 app.MapGet("/getdata/color", () =>
 {
-    var data =
-        new SomeDataProvider()
-        .GetData(new SomeFileReader(filePath), delimiter)
-        .OrderBy(d => d.FavoriteColor)
-                .ThenBy(d => d.LastName)
-                .ToList<SomeData>();
+    SomeDataProvider provider = new SomeDataProvider();
+    var data = provider.GetData(new SomeFileHandler(filePath), delimiter);
+    data = provider.SortData("color", data);
 
     return data;
 })
@@ -55,11 +58,9 @@ app.MapGet("/getdata/color", () =>
 
 app.MapGet("/getdata/birthdate", () =>
 {
-    var data =
-        new SomeDataProvider()
-        .GetData(new SomeFileReader(filePath), delimiter)
-        .OrderBy(d => d.DateOfBirth)
-         .ToList<SomeData>();
+    SomeDataProvider provider = new SomeDataProvider();
+    var data = provider.GetData(new SomeFileHandler(filePath), delimiter);
+    data = provider.SortData("birthdate", data);
 
     return data;
 })
@@ -67,11 +68,9 @@ app.MapGet("/getdata/birthdate", () =>
 
 app.MapGet("/getdata/name", () =>
 {
-    var data =
-        new SomeDataProvider()
-        .GetData(new SomeFileReader(filePath), delimiter)
-        .OrderByDescending(d => d.LastName)
-                .ToList<SomeData>();
+    SomeDataProvider provider = new SomeDataProvider();
+    var data = provider.GetData(new SomeFileHandler(filePath), delimiter);
+    data = provider.SortData("name", data);
 
     return data;
 })
@@ -85,6 +84,9 @@ app.MapPost("/putdata", (SomeData someData) =>
         new SomeData { LastName = "Szatkowski", FirstName = "Steve", Email = "steveszat@hotmail.com", FavoriteColor="Blue", DateOfBirth = new DateTime(2000, 12, 12) } // not my acutual DoB 
     };
     list.Add(someData);
+    var listToString =
+    from line in list
+    select line;
 
 })
 .WithName("PutSomeData");

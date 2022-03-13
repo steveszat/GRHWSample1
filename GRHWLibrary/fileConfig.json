@@ -1,0 +1,13 @@
+{
+  "Data": {
+    "FilePaths": {
+      "drive": "D",
+      "dataPath": "\\Temp\\SourceData"
+    },
+    "Filenames": {
+      "comma": "randomdata.csv",
+      "pipe": "pipeddata.csv",
+      "space": "spaceddata.csv"
+    }
+  }
+}

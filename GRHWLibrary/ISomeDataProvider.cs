@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GRHWLibrary
 {
-    public interface ISomeDataProvider
+    public interface ISomeDataProvider<T>
     {
-        List<SomeData> GetData(ISomeFileReader fileReader, char delimiter);
+        List<T> GetData(ISomeFileHandler fileReader, char delimiter);
 
     }
 }

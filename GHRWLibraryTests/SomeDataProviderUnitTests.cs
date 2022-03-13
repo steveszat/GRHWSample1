@@ -11,9 +11,9 @@ namespace GHRWLibraryTests
         [Fact]
         public void GetDataTest1()
         {
-            Mock<ISomeFileReader> mockReader
-                = new Mock<ISomeFileReader>();
-            mockReader.Setup(x => x.OpenFile())
+            Mock<ISomeFileHandler> mockReader
+                = new Mock<ISomeFileHandler>();
+            mockReader.Setup(x => x.ReadFile())
                 .Returns(new string[]
                 { "LastName,FirstName,Email,Color,2/2/2022" });
             var data = new SomeDataProvider()
@@ -30,9 +30,9 @@ namespace GHRWLibraryTests
         [Fact]
         public void GetDataInvalidDelimiterTest()
         {
-            Mock<ISomeFileReader> mockReader
-                = new Mock<ISomeFileReader>();
-            mockReader.Setup(x => x.OpenFile())
+            Mock<ISomeFileHandler> mockReader
+                = new Mock<ISomeFileHandler>();
+            mockReader.Setup(x => x.ReadFile())
                 .Returns(new string[]
                 { "LastName,FirstName,Email,Color,2/2/2022"});
             Assert.Throws<ArgumentException>(() => new SomeDataProvider()
@@ -42,9 +42,9 @@ namespace GHRWLibraryTests
         [Fact]
         public void GetDataNotEnoughElementsTest()
         {
-            Mock<ISomeFileReader> mockReader
-                = new Mock<ISomeFileReader>();
-            mockReader.Setup(x => x.OpenFile())
+            Mock<ISomeFileHandler> mockReader
+                = new Mock<ISomeFileHandler>();
+            mockReader.Setup(x => x.ReadFile())
                 .Returns(new string[]
                 { "LastName,FirstName,Email,Color"});
             Assert.Throws<ArgumentException>(() => new SomeDataProvider()
@@ -54,9 +54,9 @@ namespace GHRWLibraryTests
         [Fact]
         public void GetDataTooManyElementsTest()
         {
-            Mock<ISomeFileReader> mockReader
-                = new Mock<ISomeFileReader>();
-            mockReader.Setup(x => x.OpenFile())
+            Mock<ISomeFileHandler> mockReader
+                = new Mock<ISomeFileHandler>();
+            mockReader.Setup(x => x.ReadFile())
                 .Returns(new string[]
                 { "LastName,FirstName,Email,Color,2/2/2022,SomethingElse"});
             Assert.Throws<ArgumentException>(() => new SomeDataProvider()

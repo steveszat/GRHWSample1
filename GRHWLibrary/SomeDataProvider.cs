@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GRHWLibrary
 {
-    public class SomeDataProvider : ISomeDataProvider
+    public class SomeDataProvider : ISomeDataProvider<SomeData>
     {
 
-        public List<SomeData> GetData(ISomeFileReader fileReader, char delimiter)
+        public List<SomeData> GetData(ISomeFileHandler fileReader, char delimiter)
         {
-            var file = fileReader.OpenFile();
+            var file = fileReader.ReadFile();
             int numberOfElements = 5;
             if (IsDelimiterValid(delimiter, numberOfElements, file))
             {
@@ -27,7 +27,7 @@ namespace GRHWLibrary
                             FavoriteColor = line[(int)ArrayElement.FavoriteColor].Trim(),
                             DateOfBirth = DateTime.Parse(line[(int)ArrayElement.DoB].Trim())
                         }
-                ).ToList<SomeData>(); 
+                ).ToList<SomeData>();
             }
             else
             {
@@ -36,17 +36,45 @@ namespace GRHWLibrary
 
         }
 
-        // Just doing a simple check to make sure each line
-        // contains the correct number of delimiters
-        private static bool IsDelimiterValid(char delimiter, int elementCount, string[] file)
+        public static bool IsDelimiterValid(char delimiter, int elementCount, string[] file)
         {
             return (from line in file
                     // each line should contain one less delimiter than elements
                     where line.Count(c => c == delimiter) == (elementCount - 1)
-                    select line).Count() 
+                    select line).Count()
                     ==
                     (from line in file
-                    select line).Count();
+                     select line).Count();
         }
+
+        public List<SomeData> SortData(string sortBy, List<SomeData> data)
+        {
+
+            switch (sortBy)
+            {
+                case "color":
+                    data = data.OrderBy(d => d.FavoriteColor)
+                        .ThenBy(d => d.LastName)
+                        .ToList<SomeData>();
+                    break;
+                case "birthdate":
+                    data = data.OrderBy(d => d.DateOfBirth)
+                    .ToList<SomeData>();
+                    break;
+                case "name":
+                    data = data.OrderByDescending(d => d.LastName)
+                    .ToList<SomeData>();
+                    break;
+                default:
+                    Console.WriteLine("To sort data, add the argument \"/sort\" followed by one of the following values: \"color\", \"birthdate\" or \"name\"");
+                    break;
+
+            }
+
+            return data;
+        }
+
     }
+
+
 }

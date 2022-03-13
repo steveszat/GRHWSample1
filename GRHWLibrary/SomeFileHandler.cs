@@ -2,17 +2,17 @@
 
 namespace GRHWLibrary
 {
-    public class SomeFileReader : ISomeFileReader
+    public class SomeFileHandler : ISomeFileHandler
     {
         private string _filePath;
 
-        public SomeFileReader(string filePath)
+        public SomeFileHandler(string filePath)
         {
             _filePath = filePath;
 
         }
 
-        public string[] OpenFile()
+        public string[] ReadFile()
         {
             string[] result = null;
             if (File.Exists(_filePath))
@@ -21,7 +21,7 @@ namespace GRHWLibrary
                 {
                     result = File.ReadAllLines(_filePath);
                 }
-                // catch and log exception and return generic error message
+                // catch and log exception and return or throw generic error message
                 catch (ArgumentException)
                 {
                     throw;

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace GRHWLibrary
 {
-    public interface ISomeFileReader
+    public interface ISomeFileHandler
     {
-        string[] OpenFile();
+        string[] ReadFile();
     }
 }

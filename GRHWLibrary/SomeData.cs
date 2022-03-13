@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace GRHWLibrary
 {
+    /// <summary>
+    /// SomeData is a generic name 
+    /// because the data contained therein lacks a cohesive purpose 
+    /// which would normally be used to provide a more meaningful name
+    /// </summary>
     public class SomeData
     {
         public string LastName { get; set; }
