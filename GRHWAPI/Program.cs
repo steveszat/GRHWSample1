@@ -78,15 +78,18 @@ app.MapGet("/getdata/name", () =>
 
 app.MapPost("/putdata", (SomeData someData) =>
 {
-    // let's pretend this is the existing data
+    char delimiter = '|';
+    // let's pretend this is the existing data, since we don't need to persist
     var list = new List<SomeData>()
     {  
         new SomeData { LastName = "Szatkowski", FirstName = "Steve", Email = "steveszat@hotmail.com", FavoriteColor="Blue", DateOfBirth = new DateTime(2000, 12, 12) } // not my acutual DoB 
     };
     list.Add(someData);
+    // replace the delimiter if necessary before saving it to file
     var listToString =
     from line in list
-    select line;
+    select delimiter == ',' ? line.ToString() 
+    : line.ToString().Replace(',', delimiter);
 
 })
 .WithName("PutSomeData");

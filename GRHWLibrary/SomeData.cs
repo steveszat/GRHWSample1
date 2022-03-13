@@ -21,7 +21,8 @@ namespace GRHWLibrary
 
         public override string ToString()
         {
-            return $"{LastName} {FirstName} {Email} {FavoriteColor} {DateOfBirth.ToString("M/d/yyyy")}";
+            string emptyString = "[empty]";
+            return $"{LastName??emptyString},{FirstName??emptyString},{Email??emptyString},{FavoriteColor??emptyString},{DateOfBirth.ToString("M/d/yyyy")}";
         }
     }
 }
