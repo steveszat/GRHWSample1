@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using GRHWLibrary;
+﻿using GRHWLibrary;
 using Moq;
+using System;
 using Xunit;
 
 namespace GHRWLibraryTests
