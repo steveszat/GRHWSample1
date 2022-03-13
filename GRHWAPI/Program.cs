@@ -1,15 +1,16 @@
 using GRHWLibrary;
 #region Constants
 const string dataPath = @"D:\Temp\RandomData";
-const string randomDataFilename = "randomdata.csv";
-const string randomDataPath = $"{dataPath}\\{randomDataFilename}";
+const string commaDelimitedFilename = "randomdata.csv";
+const string commaDelimitedDataPath = $"{dataPath}\\{commaDelimitedFilename}";
 const string pipedDataFilename = "pipeddata.csv";
 const string pipedDataPath = $"{dataPath}\\{pipedDataFilename}";
 const string spacedDataFilename = "spaceddata.csv";
 const string spacedDataPath = $"{dataPath}\\{spacedDataFilename}";
-char delimiter = ',';
-#endregion Constants
 
+#endregion Constants
+char delimiter = ',';
+string filePath = commaDelimitedDataPath;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -32,7 +33,7 @@ app.MapGet("/getdata", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), delimiter);
+        .GetData(new SomeFileReader(filePath), delimiter);
 
     return data;
 })
@@ -43,7 +44,7 @@ app.MapGet("/getdata/color", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), delimiter)
+        .GetData(new SomeFileReader(filePath), delimiter)
         .OrderBy(d => d.FavoriteColor)
                 .ThenBy(d => d.LastName)
                 .ToList<SomeData>();
@@ -56,7 +57,7 @@ app.MapGet("/getdata/birthdate", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), delimiter)
+        .GetData(new SomeFileReader(filePath), delimiter)
         .OrderBy(d => d.DateOfBirth)
          .ToList<SomeData>();
 
@@ -68,7 +69,7 @@ app.MapGet("/getdata/name", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), delimiter)
+        .GetData(new SomeFileReader(filePath), delimiter)
         .OrderByDescending(d => d.LastName)
                 .ToList<SomeData>();
 
