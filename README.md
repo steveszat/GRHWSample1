@@ -23,7 +23,7 @@ filePath must be a valid file path including the name of a text file containing 
 
 GRHWLibrary
 
-GRHWLibrary provided functionality used by GRHomeworkConsole and GRHWAPI. 
+GRHWLibrary provides functionality used by GRHomeworkConsole and GRHWAPI. 
 
 GHRWLibraryTests
 
