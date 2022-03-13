@@ -7,6 +7,7 @@ const string pipedDataFilename = "pipeddata.csv";
 const string pipedDataPath = $"{dataPath}\\{pipedDataFilename}";
 const string spacedDataFilename = "spaceddata.csv";
 const string spacedDataPath = $"{dataPath}\\{spacedDataFilename}";
+char delimiter = ',';
 #endregion Constants
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +32,7 @@ app.MapGet("/getdata", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), ',');
+        .GetData(new SomeFileReader(randomDataPath), delimiter);
 
     return data;
 })
@@ -42,7 +43,7 @@ app.MapGet("/getdata/color", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), ',')
+        .GetData(new SomeFileReader(randomDataPath), delimiter)
         .OrderBy(d => d.FavoriteColor)
                 .ThenBy(d => d.LastName)
                 .ToList<SomeData>();
@@ -55,7 +56,7 @@ app.MapGet("/getdata/birthdate", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), ',')
+        .GetData(new SomeFileReader(randomDataPath), delimiter)
         .OrderBy(d => d.DateOfBirth)
          .ToList<SomeData>();
 
@@ -67,12 +68,24 @@ app.MapGet("/getdata/name", () =>
 {
     var data =
         new SomeDataProvider()
-        .GetData(new SomeFileReader(randomDataPath), ',')
+        .GetData(new SomeFileReader(randomDataPath), delimiter)
         .OrderByDescending(d => d.LastName)
                 .ToList<SomeData>();
 
     return data;
 })
 .WithName("GetDataByLastNameDescending");
+
+app.MapPost("/putdata", (SomeData someData) =>
+{
+    // let's pretend this is the existing data
+    var list = new List<SomeData>()
+    {  
+        new SomeData { LastName = "Szatkowski", FirstName = "Steve", Email = "steveszat@hotmail.com", FavoriteColor="Blue", DateOfBirth = new DateTime(2000, 12, 12) } // not my acutual DoB 
+    };
+    list.Add(someData);
+
+})
+.WithName("PutSomeData");
 
 app.Run();
