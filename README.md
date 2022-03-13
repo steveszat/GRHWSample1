@@ -17,6 +17,6 @@
 GRHWAPI must be configured within the code, Program.cs file. The variables delimiter
 and filePath can be replaced with appropriate values. 
 
-delimiter must be a comma, a piping symbol, or the letter 's'. 
+delimiter must be a comma, a piping symbol, or the letter 's' for space delimited data
 
 filePath must be a valid file path including the name of a text file containing data delimited by the delimiter.
