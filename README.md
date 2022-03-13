@@ -2,7 +2,7 @@
 
  Consists of 4 projects: GRHomeworkConsole, GRHWAPI, GRHWLibrary, GHRWLibraryTests. Both GRHomeworkConsole and GRHWAPI make use of GRHWLibrary.
  
- GRHomeworkConsole, once compiled to GRHomeworkConsole.exe can be run from the command line with the following arguments /path, /sort and /delim. 
+ GRHomeworkConsole, once compiled to GRHomeworkConsole.exe can be run from the command line with the following arguments: /path, /sort and /delim. 
  
  /path must be followed by a valid filepath of a file containing delimited data 
  
