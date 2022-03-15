@@ -33,7 +33,7 @@ namespace GRHWLibrary
             }
             else
             {
-                DateTime date = DateTime.Parse(dateString);
+                DateTime date = new DateTime();
                 if (DateTime.TryParse(dateString, out date))
                 {
                     if (date > DateTime.MinValue)

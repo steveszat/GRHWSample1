@@ -21,8 +21,7 @@ else
         try
         {
             var dataProvider = new SomeDataProvider();
-            var data = dataProvider
-                
+            var data = dataProvider             
                 .GetData(new SomeFileHandler(filePath), delimiter)
                  .ToList<SomeData>();
             string sortBy = ArgParser.GetSortBy(parsedArgs);
