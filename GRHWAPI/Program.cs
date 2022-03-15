@@ -8,6 +8,9 @@ const string pipedDataPath = $"{dataPath}\\{pipedDataFilename}";
 const string spacedDataFilename = "spaceddata.csv";
 const string spacedDataPath = $"{dataPath}\\{spacedDataFilename}";
 #endregion Constants
+
+DateTime minDoB = DateTime.Now.Subtract(new TimeSpan(365 * 100, 0, 0, 0));
+DateTime maxDoB = DateTime.Now.Subtract(new TimeSpan(365 * 18, 0, 0, 0));
 List<string> commaData = new List<string>()
 {
     "Szatkowski,Steve,steveszat@hotmail.com,Blue,12/21/2012"
@@ -91,7 +94,7 @@ app.MapGet("/getdata/name", () =>
 app.MapPost("/putdata", (SomeData data) =>
 {
     someData.Add(data);
-
+  
 })
 .WithName("PutSomeData");
 

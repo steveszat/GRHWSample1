@@ -18,7 +18,13 @@ namespace GRHWLibrary
             return date >= minValue && date <= maxValue;
         }
 
-        public static bool IsValidDateString(string dateString)
+        public static bool IsValidBirthDate(string dateString, DateTime minValue, DateTime maxValue)
+        {
+            return IsValidDate(dateString) 
+                && IsValidBirthDate(DateTime.Parse(dateString), minValue, maxValue));   
+        }
+
+        public static bool IsValidDate(string dateString)
         {
             bool isValid = false;
             if (string.IsNullOrEmpty(dateString))
@@ -55,6 +61,25 @@ namespace GRHWLibrary
                 return false;
             }
             return true;
+        }
+
+        public static bool IsValidSomeData(SomeData someData, DateTime minDoB, DateTime maxDoB)
+        {
+            return IsValidSomeData(someData.LastName, someData.FirstName, someData.Email,
+                someData.FavoriteColor, someData.DateOfBirth.ToString(),
+                minDoB, maxDoB);
+        }
+
+        public static bool IsValidSomeData(string lastName, string firstName, 
+            string email, string favoriteColor, string birthdate, 
+            DateTime minDoB, DateTime maxDoB)
+        {
+            return lastName != null 
+                && firstName != null 
+                && IsValidEmailAddress(email)
+                && favoriteColor != null 
+                && IsValidBirthDate(birthdate, minDoB, maxDoB);   
+
         }
     }
 }
