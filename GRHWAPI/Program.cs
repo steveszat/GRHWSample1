@@ -93,7 +93,10 @@ app.MapGet("/getdata/name", () =>
 
 app.MapPost("/putdata", (SomeData data) =>
 {
-    someData.Add(data);
+    if (Validation.IsValidSomeData(data, minDoB, maxDoB))
+    {
+        someData.Add(data);
+    }
   
 })
 .WithName("PutSomeData");
@@ -101,18 +104,25 @@ app.MapPost("/putdata", (SomeData data) =>
 app.MapPost("/putdata/comma-delimited", (string lastName, string firstName, string email, string favoriteColor, string birthDate) =>
 {
     char delimiter = ',';
-    string newData = string.Join(delimiter, 
-        new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
-    commaData.Add(newData);
+    if (Validation.IsValidSomeData(lastName, firstName, email, favoriteColor, birthDate, minDoB, maxDoB))
+    {
+        string newData = string.Join(delimiter,
+            new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
+        commaData.Add(newData);
+    }
+
 })
 .WithName("PutDataCommaDelimited");
 
 app.MapPost("/putdata/pipe-delimited", (string lastName, string firstName, string email, string favoriteColor, string birthDate) =>
 {
     char delimiter = '|';
-    string newData = string.Join(delimiter,
-        new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
-    pipeData.Add(newData);
+    if (Validation.IsValidSomeData(lastName, firstName, email, favoriteColor, birthDate, minDoB, maxDoB))
+    {
+        string newData = string.Join(delimiter,
+            new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
+        pipeData.Add(newData); 
+    }
 
 })
 .WithName("PutDataPipeDelimited");
@@ -120,9 +130,13 @@ app.MapPost("/putdata/pipe-delimited", (string lastName, string firstName, strin
 app.MapPost("/putdata/space-delimited", (string lastName, string firstName, string email, string favoriteColor, string birthDate) =>
 {
     char delimiter = ' ';
-    string newData = string.Join(delimiter,
-        new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
-    spaceData.Add(newData);
+    if (Validation.IsValidSomeData(lastName, firstName, email, favoriteColor, birthDate, minDoB, maxDoB))
+    {
+        string newData = string.Join(delimiter,
+            new string[] { lastName, firstName, email, favoriteColor, birthDate.ToString() });
+        spaceData.Add(newData);
+    }
+
 
 })
 .WithName("PutDataSpaceDelimited");

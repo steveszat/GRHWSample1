@@ -21,7 +21,7 @@ namespace GRHWLibrary
         public static bool IsValidBirthDate(string dateString, DateTime minValue, DateTime maxValue)
         {
             return IsValidDate(dateString) 
-                && IsValidBirthDate(DateTime.Parse(dateString), minValue, maxValue));   
+                && IsValidBirthDate(DateTime.Parse(dateString), minValue, maxValue);   
         }
 
         public static bool IsValidDate(string dateString)
